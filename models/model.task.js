@@ -5,11 +5,9 @@ const taskSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   description: {
     type: String,
   },
-
   dueDate: {
     type: Date,
     required: true,
@@ -19,13 +17,12 @@ const taskSchema = new mongoose.Schema({
     enum: ["pending", "completed", "overDue"],
     default: "pending",
   },
-
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
 });
 
 const Task = mongoose.model("Task", taskSchema);
-
 module.exports = Task;
