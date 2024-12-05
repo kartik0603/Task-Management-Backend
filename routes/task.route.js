@@ -1,13 +1,16 @@
 const express = require("express");
-const { protect, authorize } = require("../middleware/auth_middle.js");
-const { enforceTaskLimit } = require("../middleware/task_limit_middle.js");
-const { getTasks, createTask } = require("../controllers/task.controler.js");
-
-
 const taskRouter = express.Router();
 
-taskRouter.get("/", protect, getTasks);
-taskRouter.post("/", protect, authorize("user", "admin"), enforceTaskLimit, createTask);
+
+const { enforceTaskLimit } = require("../middleware/task_limit_middle.js");
+const { getTasks, createTask } = require("../controllers/task.controler.js");
+const protect = require("../middleware/auth_middle.js");
+const roleCheck = require("../middleware/roleCheck.middleware.js")
 
 
+taskRouter.use(protect);
+
+
+taskRouter.post("/craete", roleCheck(["Admin"]), enforceTaskLimit, createTask);
+taskRouter.get("/get", roleCheck(["User", "Admin"]), getTasks);
 module.exports = taskRouter;
