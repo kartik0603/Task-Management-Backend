@@ -13,7 +13,7 @@ app.use(helmet());
 app.use("/api/auth", authRouter);
 app.use("/api/tasks", taskRouter);
 
-app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/", (req, res) => res.send("Hello World! This is the Task Management API."));
 
 if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => {
