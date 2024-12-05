@@ -54,3 +54,46 @@ This is a simple task management API built with **Node.js**, **Express**, **Mong
 ├── <b>server.js</b>  
 
 </div>
+
+
+## Auth Routes
+**File:** `authRouter.js`
+
+### Endpoints
+
+- **POST /api/auth/register**
+  - Registers a new user.
+  - Calls the register controller.
+
+- **POST /api/auth/login**
+  - Logs in an existing user.
+  - Calls the login controller.
+
+- **POST /api/auth/forget-password**
+  - Sends a password reset link to the user's email.
+  - Calls the forgetPassword controller.
+
+- **POST /api/auth/reset-password**
+  - Resets the user's password.
+  - Calls the resetPassword controller.
+
+## Task Routes
+**File:** `taskRouter.js`
+
+### Middleware
+
+- **protect:** Ensures the user is authenticated before accessing any task route.
+- **roleCheck(roles):** Grants access to specific roles (e.g., "Admin", "User").
+- **enforceTaskLimit:** Restricts the number of tasks a user can create.
+
+### Endpoints
+
+- **POST /api/tasks/create**
+  - Creates a new task.
+  - Accessible only by Admins.
+  - Calls the createTask controller.
+
+- **GET /api/tasks/get**
+  - Retrieves tasks for Admins and Users.
+  - Calls the getTasks controller.
+
